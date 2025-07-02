@@ -6,12 +6,13 @@ import (
 	"os"            // бибилотека функций для работы с файлами
 )
 
-// объявление нового типа данных DB, который будет использоваться для хранения базы данных
+// DB хранит сигнатуры вредоносных файлов по хешам разных типов.
 type DB struct {
 	sigs map[string]map[string]string // тип хеша -> хеш -> описание
 }
 
 // функция загрузки сигнатур из JSON файла и обертка в DB
+// LoadFromJSON загружает базу сигнатур из JSON-файла.
 func LoadFromJSON(path string) (*DB, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -38,7 +39,7 @@ func LoadFromJSON(path string) (*DB, error) {
 	return nil, err
 }
 
-// Exists проверяет, есть ли сигнатура с данным хешем и типом в базе
+// Exists проверяет, есть ли сигнатура с данным хешем и типом в базе.
 func (db *DB) Exists(hashType, hash string) bool {
 	if db == nil || db.sigs == nil {
 		return false

@@ -13,17 +13,17 @@ import (
 	"os"
 )
 
-// SigScanner реализует scanner.Scanner, проверяя файлы по SHA-256-сигнатурам.
+// SigScanner реализует интерфейс Scanner и ищет вредоносные файлы по хеш-сигнатурам.
 type SigScanner struct {
-	DB *signaturedb.DB // зависимость: база сигнатур
+	DB *signaturedb.DB // база сигнатур
 }
 
-// New возвращает готовый SigScanner, «привязанный» к базе db.
+// New создает новый SigScanner, связанный с указанной базой сигнатур.
 func New(db *signaturedb.DB) *SigScanner {
 	return &SigScanner{DB: db}
 }
 
-// Scan считает SHA-256 файла и ищет хэш в базе сигнатур.
+// Scan вычисляет хеши файла и ищет их в базе сигнатур.
 func (s *SigScanner) Scan(ctx context.Context, path string) (scanner.Result, error) {
 	file, err := os.Open(path) // открыть файл
 	if err != nil {

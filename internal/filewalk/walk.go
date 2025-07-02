@@ -10,9 +10,7 @@ import (
 	"localantivirus/internal/scanner"
 )
 
-// WalkAndScan рекурсивно обходит root-директорию и проверяет каждый
-// найденный файл всеми переданными сканерами. Работает параллельно
-// (одна горутина на файл) и реагирует на отмену ctx.
+// WalkAndScan рекурсивно обходит директорию root и проверяет каждый файл всеми переданными сканерами.
 func WalkAndScan(
 	ctx context.Context,
 	root string,

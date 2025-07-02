@@ -3,18 +3,15 @@ package scanner
 
 import "context"
 
-// Result описывает вывод любого сканера.
+// Result описывает результат сканирования одного файла.
 type Result struct {
 	File      string // абсолютный путь к файлу
 	Malicious bool   // true, если обнаружена угроза
-	Reason    string // пояснение (matched hash, yara-rule …)
+	Reason    string // пояснение (matched hash и т.д.)
 }
 
-// Scanner — общий контракт: любой механизм детекции обязан реализовать Scan.
+// Scanner — интерфейс для всех сканеров, реализующих метод Scan.
 type Scanner interface {
-	// Scan анализирует файл по пути path.
-	//   ctx  – контекст отмены/таймаута;
-	//   path – путь к проверяемому файлу.
-	// Возвращает Result и возможную ошибку чтения/анализа.
+	// Scan анализирует файл по указанному пути и возвращает результат.
 	Scan(ctx context.Context, path string) (Result, error)
 }

@@ -14,6 +14,7 @@ import (
 	"github.com/schollz/progressbar/v3"
 )
 
+// main — точка входа в приложение. Запускает сканирование файлов на вредоносные сигнатуры.
 func main() {
 	// --- 1. флаги командной строки ---
 	dir := flag.String("dir", ".", "directory to scan")
@@ -33,7 +34,6 @@ func main() {
 
 	// --- 4. создаём сканер и запускаем обход ---
 	sigScan := signature.New(db)
-
 	results, err := filewalk.WalkAndScan(ctx, *dir, sigScan)
 	if err != nil {
 		log.Fatalf("scan failed: %v", err)
